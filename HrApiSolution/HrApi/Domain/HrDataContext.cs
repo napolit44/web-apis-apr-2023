@@ -9,4 +9,12 @@ public class HrDataContext : DbContext
 
     }
     public DbSet<DepartmentEntity> Departments { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<DepartmentEntity>().Property(p => p.Name)
+            .HasMaxLength(20);
+        modelBuilder.Entity<DepartmentEntity>()
+            .HasIndex(p => p.Name).IsUnique();
+    }
 }
